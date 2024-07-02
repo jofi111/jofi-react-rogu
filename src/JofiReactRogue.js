@@ -1,9 +1,9 @@
 import React from "react";
 
-const RRogue = (props) => (
+const RRogue = ({ width, height, tilesize }) => (
   <canvas
-    width={props.width * props.tilesize}
-    height={props.height * props.tilesize}
+    width={width * tilesize}
+    height={height * tilesize}
     style={{ border: "1px solid black" }}
   ></canvas>
 );
