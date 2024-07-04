@@ -9,10 +9,11 @@ const RRogue = ({ width, height, tilesize }) => {
 
   const handleInput = (action, data) => {
     console.log(`handle input: ${action}:${JSON.stringify(data)}`);
-    let newPlayer = new Player();
-    Object.assign(newPlayer, player);
-    newPlayer.move(data.x, data.y);
-    setPlayer(newPlayer);
+    setPlayer((prevPlayer) => {
+      const newPlayer = new Player(prevPlayer.x, prevPlayer.y, prevPlayer.size);
+      newPlayer.move(data.x, data.y);
+      return newPlayer;
+    });
   };
 
   useEffect(() => {
