@@ -62,6 +62,11 @@ class World {
     };
     map.create(userCallback);
     map.create(userCallback, 1);
+
+    // Ensure all pathways are connected
+    map.connect((x, y, value) => {
+      this.worldmap[x][y] = value;
+    });
   }
 
   draw(context) {
