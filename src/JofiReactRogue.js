@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import InputManager from "./InputManager.js";
 import Player from "./Player.js";
 import World from "./World.js";
+import Spawner from "./Spawner.js";
 
 const RRogue = ({ width, height, tilesize }) => {
   const canvasRef = useRef();
@@ -28,6 +29,8 @@ const RRogue = ({ width, height, tilesize }) => {
     Object.assign(newWorld, world);
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
+    let spawner = new Spawner(newWorld);
+    spawner.spawnLoot(10);
     setWorld(newWorld);
   }, []); //prazdny parametr [] brani opakovanemu renderovani mapy pri kazdem pohybu hrace
 
@@ -54,7 +57,7 @@ const RRogue = ({ width, height, tilesize }) => {
       ref={canvasRef}
       width={width * tilesize}
       height={height * tilesize}
-      style={{ border: "1px solid black" }}
+      style={{ border: "1px solid black", background: "DimGray" }}
     ></canvas>
   );
 };
