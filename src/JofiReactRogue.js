@@ -28,11 +28,26 @@ const RRogue = ({ width, height, tilesize }) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
     newWorld.createCellularMap();
-    newWorld.moveToSpace(world.player);
+
+    // Ensure the player starts in the top-left corner and is not placed on a wall
+    newWorld.player.x = 0;
+    newWorld.player.y = 0;
+    while (newWorld.isWall(newWorld.player.x, newWorld.player.y)) {
+      newWorld.player.x++;
+      if (newWorld.player.x >= newWorld.width) {
+        newWorld.player.x = 0;
+        newWorld.player.y++;
+        if (newWorld.player.y >= newWorld.height) {
+          console.error("No free space found for player start!");
+          break;
+        }
+      }
+    }
+
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(10);
+    spawner.spawnLoot(10); // Ensure loot is spawned in free spaces
     setWorld(newWorld);
-  }, []); //prazdny parametr [] brani opakovanemu renderovani mapy pri kazdem pohybu hrace
+  }, []); // empty array prevents repeated map generation on every player move
 
   useEffect(() => {
     console.log("Bind input");

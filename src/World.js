@@ -23,15 +23,20 @@ class World {
     this.entities.push(entity);
   }
 
+  // Ensure entities are placed randomly in pathways, not walls
   moveToSpace(entity) {
-    for (let x = entity.x; x < this.width; x++) {
-      for (let y = entity.y; y < this.height; y++) {
+    let freeSpaces = [];
+    for (let x = 0; x < this.width; x++) {
+      for (let y = 0; y < this.height; y++) {
         if (this.worldmap[x][y] === 0) {
-          entity.x = x;
-          entity.y = y;
-          return;
+          freeSpaces.push({ x, y });
         }
       }
+    }
+    if (freeSpaces.length > 0) {
+      let { x, y } = freeSpaces[Math.floor(Math.random() * freeSpaces.length)];
+      entity.x = x;
+      entity.y = y;
     }
   }
 
