@@ -23,6 +23,10 @@ class World {
     this.entities.push(entity);
   }
 
+  remove(entity) {
+    this.entities = this.entities.filter(e => e !== entity);
+  }
+
   // Ensure entities are placed randomly in pathways, not walls
   moveToSpace(entity) {
     let freeSpaces = [];
@@ -49,7 +53,7 @@ class World {
   }
 
   getEntityAtLocation(x, y) {
-    return this.entities.find((entity) => entity.x === x && entity.y === y);
+    return this.entities.find(entity => entity.x === x && entity.y === y);
   }
 
   movePlayer(dx, dy) {
@@ -95,7 +99,7 @@ class World {
         if (this.worldmap[x][y] === 1) this.drawWall(context, x, y);
       }
     }
-    this.entities.forEach((entity) => {
+    this.entities.forEach(entity => {
       entity.draw(context);
     });
   }

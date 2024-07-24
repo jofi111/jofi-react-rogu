@@ -7,6 +7,8 @@ class Player extends Entity {
   //     this.size = size;
   //   }
 
+  inventory = [];
+
   attributes = {
     name: "Player",
     ascii: "@",
@@ -24,6 +26,10 @@ class Player extends Entity {
   //     context.font = "16px Helvetica";
   //     context.fillText("@", this.x * this.size, this.y * this.size);
   //   }
+
+  add(item) {
+    this.inventory.push(item);
+  }
 
   copyPlayer() {
     let newPlayer = new Player();
