@@ -7,6 +7,7 @@ class World {
     this.height = height;
     this.tilesize = tilesize;
     this.entities = [new Player(0, 0, 16)];
+    this.history = ["You enter the dungeon", "---"];
 
     this.worldmap = new Array(this.width); //2d array by creating 1d array (array of arrays)
     for (let x = 0; x < this.width; x++) {
@@ -29,18 +30,14 @@ class World {
 
   // Ensure entities are placed randomly in pathways, not walls
   moveToSpace(entity) {
-    let freeSpaces = [];
-    for (let x = 0; x < this.width; x++) {
-      for (let y = 0; y < this.height; y++) {
-        if (this.worldmap[x][y] === 0) {
-          freeSpaces.push({ x, y });
+    for (let x = entity; x < this.width; x++) {
+      for (let y = entity; y < this.height; y++) {
+        if (this.worldmap[x][y] === 0 && !this.getEntityAtLocation(x, y)) {
+          entity.x = x;
+          entity.y = y;
+          return;
         }
       }
-    }
-    if (freeSpaces.length > 0) {
-      let { x, y } = freeSpaces[Math.floor(Math.random() * freeSpaces.length)];
-      entity.x = x;
-      entity.y = y;
     }
   }
 
@@ -112,6 +109,11 @@ class World {
       this.tilesize,
       this.tilesize
     );
+  }
+
+  addToHistory(history) {
+    this.history.push(history);
+    if (this.history.length > 6) this.history.shift();
   }
 }
 

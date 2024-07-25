@@ -46,6 +46,7 @@ const RRogue = ({ width, height, tilesize }) => {
 
     let spawner = new Spawner(newWorld);
     spawner.spawnLoot(10); // Ensure loot is spawned in free spaces
+    spawner.spawnMonsters(6);
     setWorld(newWorld);
   }, []); // empty array prevents repeated map generation on every player move
 
@@ -78,6 +79,11 @@ const RRogue = ({ width, height, tilesize }) => {
       <ul>
         {world.player.inventory.map((item, index) => (
           <li key={index}>{item.attributes.name}</li>
+        ))}
+      </ul>
+      <ul>
+        {world.history.map((item, index) => (
+          <li key={index}>{item}</li>
         ))}
       </ul>
     </>
